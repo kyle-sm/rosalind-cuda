@@ -8,6 +8,7 @@
 #include <string.h>
 
 #include <iostream>
+#include <fstream>
 #include <vector>
 
 class GeneSequence {
@@ -15,7 +16,7 @@ private:
 	char* name;
 	char* sequence;
 public:
-	GeneSequence(char* n, char* s) :name(n), sequence(s) {}
+	GeneSequence(char* n, char* s);
 	~GeneSequence(void);
 	void setName(char* name);
 	void setSequence(char* sequence);
@@ -23,7 +24,7 @@ public:
 	char* getSequence();
 };
 
-void parseFASTA(FILE *infile, std::vector<GeneSequence>);
+std::vector<GeneSequence> parseFASTA(char* filename);
 
 void dna(FILE *infile);
 void rna(FILE *infile);

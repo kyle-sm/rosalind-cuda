@@ -1,8 +1,11 @@
 #include "rosalind.h"
 
+GeneSequence::GeneSequence(char* n, char* s) {
+	this->name = strdup(n);
+	this->sequence = strdup(s);
+}
+
 GeneSequence::~GeneSequence(void) {
-	free(name);
-	free(sequence);
 }
 
 char* GeneSequence::getName() {
@@ -14,9 +17,9 @@ char* GeneSequence::getSequence() {
 }
 
 void GeneSequence::setName(char* name) {
-	this->name = name;
+	strcpy(this->name, name);
 }
 
 void GeneSequence::setSequence(char* sequence) {
-	this->sequence = sequence;
+	strcpy(this->sequence, sequence);
 }

@@ -123,3 +123,27 @@ void fib(FILE *infile) {
 	printf("%llu\n", rabbits[1]);
 }
 
+std::vector<GeneSequence> parseFASTA(char* filename) {
+	std::ifstream infile;
+	std::vector<GeneSequence> genes;
+	char buf[100];
+	char name[100];
+	char seq[500] = { '\0' };
+
+	infile.open(filename);
+	while (infile.getline(buf, 100)) {
+		if (buf[0] == '>')
+			strcpy(name, &buf[1]); /* chop off the leading '>' character */
+		else
+			strcat(seq, buf);
+		/* If the next character is a >, it indicates the start of a new gene. If it's EOF, there are no more
+		genes to process. Either way, we're done reading the current gene and can send it to the vector. */
+		if (infile.peek() == '>' || infile.peek() == EOF) {
+			genes.push_back(GeneSequence(name, seq));
+			seq[0] = '\0';
+		}
+	}
+	infile.close();
+
+	return genes;
+}
