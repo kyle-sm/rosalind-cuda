@@ -5,7 +5,7 @@
 // Problem 6: Counting Point Mutations
 
 __global__ void hammkernel(const char* first, const char* second,  int* hamming) {
-	if (first[threadIdx.x] == second[threadIdx.x])
+	if (first[threadIdx.x] != second[threadIdx.x])
 		atomicAdd(hamming, 1);
 }
 
