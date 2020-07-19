@@ -30,6 +30,7 @@ void dna(FILE *infile);
 void rna(FILE *infile);
 void revc(FILE *infile);
 void fib(FILE* infile);
+void gc(char* filename);
 
 cudaError_t ntcount(const char* in, int* out, unsigned int size);
 cudaError_t rnatranscribe(const char* in, char* out, unsigned int size);

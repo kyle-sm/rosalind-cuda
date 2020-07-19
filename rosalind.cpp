@@ -19,6 +19,8 @@ int main(int argc, char** argv)
 		revc(infile);
 	case(4):
 		fib(infile);
+	case(5):
+		gc(argv[2]);
 	}
 
 
@@ -123,12 +125,30 @@ void fib(FILE *infile) {
 	printf("%llu\n", rabbits[1]);
 }
 
+void gc(char* filename) {
+	int nucleotideCount[4];
+	float gcmax = 0.0f;
+	char name[100];
+	std::vector<GeneSequence> genes = parseFASTA(filename);
+	for (auto& gene : genes) {
+		cudaError_t status = ntcount(gene.getSequence(), nucleotideCount, strlen(gene.getSequence()));
+		/* Nucleotide counts are in the following indices: {A, G, C, T} */
+		float gc = (float)(nucleotideCount[1] + nucleotideCount[2]) /
+			(float)(nucleotideCount[0] + nucleotideCount[1] + nucleotideCount[2] + nucleotideCount[3]);
+		if (gc > gcmax) {
+			gcmax = gc;
+			strcpy(name, gene.getName());
+		}
+	}
+	printf("%s\n%.6f\n", name, gcmax * 100);
+}
+
 std::vector<GeneSequence> parseFASTA(char* filename) {
 	std::ifstream infile;
 	std::vector<GeneSequence> genes;
 	char buf[100];
 	char name[100];
-	char seq[500] = { '\0' };
+	char seq[1000] = { '\0' };
 
 	infile.open(filename);
 	while (infile.getline(buf, 100)) {
