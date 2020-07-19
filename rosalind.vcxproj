@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <CudaCompile Include="dna.cu" />
+    <CudaCompile Include="hamm.cu" />
     <CudaCompile Include="revc.cu" />
     <CudaCompile Include="rna.cu" />
   </ItemGroup>

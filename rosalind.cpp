@@ -21,6 +21,8 @@ int main(int argc, char** argv)
 		fib(infile);
 	case(5):
 		gc(argv[2]);
+	case(6):
+		hamm(argv[2]);
 	}
 
 
@@ -141,6 +143,18 @@ void gc(char* filename) {
 		}
 	}
 	printf("%s\n%.6f\n", name, gcmax * 100);
+}
+
+void hamm(char* filename) {
+	std::ifstream infile;
+	char first[1000];
+	char second[1000];
+	int hammingDistance;
+	infile.open(filename);
+	infile.getline(first, 1000);
+	infile.getline(second, 1000);
+	cudaError_t status = hammcuda(first, second, strlen(first), &hammingDistance);
+	printf("%d\n", hammingDistance);
 }
 
 std::vector<GeneSequence> parseFASTA(char* filename) {

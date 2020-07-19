@@ -31,7 +31,9 @@ void rna(FILE *infile);
 void revc(FILE *infile);
 void fib(FILE* infile);
 void gc(char* filename);
+void hamm(char* filename);
 
 cudaError_t ntcount(const char* in, int* out, unsigned int size);
 cudaError_t rnatranscribe(const char* in, char* out, unsigned int size);
 cudaError_t dnacomplement(const char* in, char* out, unsigned int size);
+cudaError_t hammcuda(const char* first, const char* second, int size, int* hamming);
